@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyAlarm : MonoBehaviour
 {
-    SpriteRenderer _alarmRenderer;
+    SpriteRenderer alarmRenderer;
 
     public void PlayerDetected()
     {
@@ -19,8 +19,8 @@ public class EnemyAlarm : MonoBehaviour
 
     private void ChangeColor(Color color)
     {
-        if (_alarmRenderer == null) _alarmRenderer = GetComponent<SpriteRenderer>();
+        if (alarmRenderer == null) alarmRenderer = GetComponent<SpriteRenderer>();
 
-        _alarmRenderer.color = color;
+        alarmRenderer.color = color;
     }
 }

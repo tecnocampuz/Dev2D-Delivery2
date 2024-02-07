@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator _animator;
-    private PlayerInput _input;
-    private PlayerMovement _movement;
+    private Animator animator;
+    private PlayerInput input;
+    private PlayerMovement movement;
 
     void Start()
     {
-        _input = GetComponent<PlayerInput>();
-        _animator = GetComponent<Animator>();
-        _movement = GetComponent<PlayerMovement>();
+        input = GetComponent<PlayerInput>();
+        animator = GetComponent<Animator>();
+        movement = GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
-        _animator.SetBool("Walk", _movement.IsMoving);
-        _animator.SetBool("Sneak", _input.Sneak);
+        animator.SetBool("Walk", movement.IsMoving);
+        animator.SetBool("Sneak", input.sneak);
     }
 }

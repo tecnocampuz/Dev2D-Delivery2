@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public bool IsMoving => _isMoving;
+    public bool IsMoving => isMoving;
 
     [SerializeField]
     private float Speed = 5.0f;
 
-    private bool _isMoving;
-    PlayerInput _input;
-    Rigidbody2D _rigidbody;
+    private bool isMoving;
+    PlayerInput input;
+    Rigidbody2D rb;
 
     void Start()
     {
-        _input = GetComponent<PlayerInput>();
-        _rigidbody = GetComponent<Rigidbody2D>();
+        input = GetComponent<PlayerInput>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -27,13 +29,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector2 direction = new Vector2(_input.MovementHorizontal, _input.MovementVertical) 
-            * (_input.Sneak ? Speed/2 : Speed);
-        _rigidbody.velocity = direction;
-        _isMoving = direction.magnitude > 0.01f;
+        Vector2 direction = new Vector2(input.movementHorizontal, input.movementVertical) 
+                            * (input.sneak ? Speed/2 : Speed);
+        rb.velocity = direction;
+        isMoving = direction.magnitude > 0.01f;
 
-        if (_isMoving) LookAt((Vector2)transform.position + direction);
-        else transform.rotation = Quaternion.identity;
+        if (isMoving)
+        {
+            //LookAt((Vector2)transform.position + direction);
+            // look at the direction of movement
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+            
+        }
+        else
+        {
+            transform.rotation = Quaternion.identity;
+        }
     }
 
     void LookAt(Vector2 targetPosition)
