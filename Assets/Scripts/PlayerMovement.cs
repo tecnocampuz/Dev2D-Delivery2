@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float Speed = 5.0f;
 
     private bool isMoving;
+    private SpriteRenderer sprite;
     PlayerInput input;
     Rigidbody2D rb;
 
@@ -20,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
     }
 
     void FixedUpdate()
@@ -36,10 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMoving)
         {
-            //LookAt((Vector2)transform.position + direction);
+            LookAt((Vector2)transform.position + direction);
             // look at the direction of movement
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
-            
+            //transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
         }
         else
         {
@@ -49,9 +50,10 @@ public class PlayerMovement : MonoBehaviour
 
     void LookAt(Vector2 targetPosition)
     {
-        float angle = 0.0f;
-        Vector3 relative = transform.InverseTransformPoint(targetPosition);
-        angle = Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
-        transform.Rotate(0, 0, -angle);
+        Vector2 direction = targetPosition - (Vector2)transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        rb.freezeRotation = false;
+        rb.rotation = angle - 90;
+        rb.freezeRotation = true;
     }
 }
