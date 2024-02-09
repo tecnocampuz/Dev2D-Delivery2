@@ -2034,9 +2034,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2108089968}
-  - component: {fileID: 2108089970}
   - component: {fileID: 2108089969}
   - component: {fileID: 2108089971}
+  - component: {fileID: 2108089972}
   m_Layer: 0
   m_Name: Enemy01
   m_TagString: Enemy
@@ -2097,20 +2097,6 @@ CircleCollider2D:
   m_Offset: {x: -0.39, y: 0.12}
   serializedVersion: 2
   m_Radius: 0.39
---- !u!114 &2108089970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108089965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97361e671d6c3643839e74816af6da9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3.5
-  angle: 270
 --- !u!50 &2108089971
 Rigidbody2D:
   serializedVersion: 4
@@ -2138,6 +2124,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2108089972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108089965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac927fc8e8b9124987c21f3aed038bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionRange: 0
+  visionAngle: 35
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
