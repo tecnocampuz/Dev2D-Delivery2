@@ -14,14 +14,14 @@ public class EnemyIdle : StateMachineBehaviour
         timer = 0.0f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
-    
+
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         var playerClose = IsPlayerClose(animator.transform);
         var timeUp = IsTimeUp();
-        
+
         animator.SetBool("IsChasing", playerClose);
-        animator.SetBool("IsPatroling", timeUp);
+        animator.SetBool("IsPatroling", timeUp && !playerClose);
     }
     private bool IsTimeUp()
     {

@@ -11,14 +11,18 @@ public class PlayerDetector : MonoBehaviour
     private float playerDistance;
     [SerializeField]
     private float visionAngle;
-    
+    //Patrol
+    public Transform[] waypoints;
+    public float patrolSpeed = 2f;
+    private int currentWaypointIndex;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         visionRange = 5f;
         visionAngle = 45f;
-        //VisionRange = GetComponent<Animator>()
-        //.GetBehaviour<EnemyIdle>().VisionRange;
+        //Patrol
+        currentWaypointIndex = 0;
     }
     
     void Update()
@@ -27,6 +31,8 @@ public class PlayerDetector : MonoBehaviour
         {
             playerDistance = Vector3.Distance(transform.position, player.position);
         }
+        //Patrol
+        Patrol();
     }
 
     private void OnDrawGizmos()
@@ -41,10 +47,10 @@ public class PlayerDetector : MonoBehaviour
             * transform.right;
         Gizmos.DrawRay(transform.position, direction2 * visionRange);
 
-        Gizmos.color = Color.yellow;
-        if (player != null && playerDistance < visionRange)
+        
+        if (player != null)
         {
-            Vector3.Distance(transform.position, player.position);
+            Gizmos.color = playerDistance > visionRange ? Color.green : Color.yellow;
             Gizmos.DrawLine(transform.position, player.position);
         }
         Gizmos.color = Color.white;
@@ -55,5 +61,19 @@ public class PlayerDetector : MonoBehaviour
         float dist = 0.0f;
         if (player != null) Vector3.Distance(transform.position, player.position);
         return dist;
+    }
+    //Patrol
+    void Patrol()
+    {
+        if (waypoints.Length == 0) return;
+
+        var targetPosition = waypoints[currentWaypointIndex].position;
+        var direction = targetPosition - transform.position;
+        transform.position += direction.normalized * patrolSpeed * Time.deltaTime;
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        {
+            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        }
     }
 }
