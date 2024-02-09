@@ -8,6 +8,8 @@ public class PlayerDetector : MonoBehaviour
     [SerializeField]
     private float visionRange;
     private Transform player;
+    [SerializeField]
+    private float chaseSpeed = 2.5f;
     private float playerDistance;
     [SerializeField]
     private float visionAngle;
@@ -30,9 +32,17 @@ public class PlayerDetector : MonoBehaviour
         if (player != null)
         {
             playerDistance = Vector3.Distance(transform.position, player.position);
+            //Patrol
+            if (playerDistance <= visionRange)
+            {
+                playerChase();
+            }
+            else
+            {
+                patrol();
+            }
         }
-        //Patrol
-        Patrol();
+        
     }
 
     private void OnDrawGizmos()
@@ -63,17 +73,36 @@ public class PlayerDetector : MonoBehaviour
         return dist;
     }
     //Patrol
-    void Patrol()
+    void patrol()
     {
         if (waypoints.Length == 0) return;
 
         var targetPosition = waypoints[currentWaypointIndex].position;
         var direction = targetPosition - transform.position;
         transform.position += direction.normalized * patrolSpeed * Time.deltaTime;
+        //Calcula la direccio del moviment
+        if(direction != Vector3.zero)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
 
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
             currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        }
+    }
+
+    void playerChase()
+    {
+        var targetPosition = player.position;
+        var direction = targetPosition - transform.position;
+        transform.position += direction.normalized * chaseSpeed * Time.deltaTime;
+
+        if(direction != Vector3.zero)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 }
