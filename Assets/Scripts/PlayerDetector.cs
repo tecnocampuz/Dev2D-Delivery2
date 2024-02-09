@@ -41,10 +41,11 @@ public class PlayerDetector : MonoBehaviour
             * transform.right;
         Gizmos.DrawRay(transform.position, direction2 * visionRange);
 
-        Gizmos.color = Color.white;
-        if (player != null)
+        Gizmos.color = Color.yellow;
+        if (player != null && playerDistance < visionRange)
         {
             Vector3.Distance(transform.position, player.position);
+            Gizmos.DrawLine(transform.position, player.position);
         }
         Gizmos.color = Color.white;
     }
