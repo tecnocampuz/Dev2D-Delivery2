@@ -8,8 +8,8 @@ public class TimeController : MonoBehaviour
 {
     public static TimeController instance;
     
-    public static float bestTime = float.MaxValue;
-    public float currentTime = 0;
+    public static float bestTime { get; private set; } = float.MaxValue;
+    public float currentTime { get; private set; } = 0;
 
     public Text timeText;
 

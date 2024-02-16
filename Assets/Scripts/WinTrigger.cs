@@ -15,6 +15,7 @@ public class WinTrigger : MonoBehaviour {
 
     private void ShowWin() {
         TimeController.instance.CheckHighScore();
+        PlayerPrefs.SetFloat("distance", DistanceController.instance.currentDistance);
         PlayerPrefs.SetFloat("bestTime", TimeController.bestTime);
         PlayerPrefs.SetFloat("currentTime", TimeController.instance.currentTime);
         SceneManager.LoadScene("Ending");

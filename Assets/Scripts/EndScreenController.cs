@@ -10,9 +10,13 @@ public class EndScreenController : MonoBehaviour {
     private GameObject text;
 
     void OnEnable() {
+        float distance = PlayerPrefs.GetFloat("distance");
         float bestTime = PlayerPrefs.GetFloat("bestTime");
         float currentTime = PlayerPrefs.GetFloat("currentTime");
-        text.GetComponent<Text>().text = "Time: " + currentTime.ToString() + "\nBest time: " + bestTime.ToString();
+        text.GetComponent<Text>().text =
+            "Time: " + currentTime.ToString() + " sec." +
+            "\nBest time: " + bestTime.ToString() + " sec." +
+            "\nDistance walked: " + distance.ToString() + " m";
     }
 
     void Update() {
