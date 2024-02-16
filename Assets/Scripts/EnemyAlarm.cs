@@ -19,7 +19,8 @@ public class EnemyAlarm : MonoBehaviour
 
     private void ChangeColor(Color color)
     {
-        if (alarmRenderer == null) alarmRenderer = GetComponent<SpriteRenderer>();
+        if (alarmRenderer == null)
+            alarmRenderer = GetComponent<SpriteRenderer>();
 
         alarmRenderer.color = color;
     }

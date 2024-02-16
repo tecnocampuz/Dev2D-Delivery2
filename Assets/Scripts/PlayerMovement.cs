@@ -26,12 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
-    }
-
-    private void Move()
-    {
-        Vector2 direction = new Vector2(input.movementHorizontal, input.movementVertical) 
+        Vector2 direction = new Vector2(input.movementHorizontal, input.movementVertical).normalized 
                             * (input.sneak ? Speed/2 : Speed);
         rb.velocity = direction;
         isMoving = direction.magnitude > 0.01f;
